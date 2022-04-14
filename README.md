@@ -1,6 +1,6 @@
 ### Minecraft on Replit [![Run on Repl.it](https://repl.it/badge/github/SrEvelio/Minecraft-Replit)](https://repl.it/github/SrEvelio/Minecraft-Replit)
 
-The title says it all, running a minecraft [CraftBukkit](https://getbukkit.org/download/craftbukkit) server on Replit in just seconds.
+The title says it all, running a minecraft server on Replit in just seconds.
 
 
 ### How to enter the server
