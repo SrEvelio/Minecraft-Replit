@@ -1,6 +1,6 @@
 ### Minecraft on Replit [![Run on Repl.it](https://repl.it/badge/github/SrEvelio/Minecraft-Replit)](https://repl.it/github/SrEvelio/Minecraft-Replit)
 
-The title says it all, running a minecraft paper 1.8.8 server with [Hibernate](https://www.spigotmc.org/resources/hibernate.4441/) on Replit in just seconds.
+The title says it all, running a minecraft [PaperMC 1.8.8](https://papermc.io/) server with [Hibernate](https://www.spigotmc.org/resources/hibernate.4441/) on Replit in just seconds.
 
 
 ### How to enter the server
