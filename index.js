@@ -3,7 +3,7 @@ const fs = require("fs");
 const {
     execSync
 } = require("child_process");
-const path = "./Minecraft/paper-1.8.8-445.jar";
+const path = "./Minecraft/CraftBukkit.jar";
 const nngrok = "./ngrok-stable-linux-amd64.tgz"
 
 if (!fs.existsSync("./Minecraft")) fs.mkdirSync("./Minecraft");
@@ -27,21 +27,21 @@ const ngrok = () => {
 
 const server = () => {
     if (fs.existsSync(path)) {
-        execSync("cd Minecraft && java -Xmx1024M -Xms1024M -jar paper-1.8.8-445.jar", {
+        execSync("cd Minecraft && java -Xmx1024M -Xms1024M -jar CraftBukkit.jar", {
             stdio: "inherit"
         });
     } else if (!fs.existsSync(path)) {
-        console.log("\x1b[31m%s\x1b[0m", "paper-1.8.8-445.jar not found!");
+        console.log("\x1b[31m%s\x1b[0m", "CraftBukkit.jar not found!");
         console.log("\x1b[34m%s\x1b[0m", "I will try to download one for you.");
         console.log("\x1b[34m%s\x1b[0m", "If for whatever reason it says that the Jar file is corrupt, you can delete the jar file and try running this again.");
 
         // Create the Minecraft folder if it doesn't exist
 
-        got.stream("https://papermc.io/api/v2/projects/paper/versions/1.8.8/builds/445/downloads/paper-1.8.8-445.jar")
+        got.stream("https://cdn.getbukkit.org/craftbukkit/craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar")
             .pipe(fs.createWriteStream(path))
             .on("finish", () => {
-                console.log("\x1b[32m%s\x1b[0m", "paper-1.8.8-445.jar downloaded!");
-                execSync("cd Minecraft && java -Xmx1024M -Xms1024M -jar paper-1.8.8-445.jar", {
+                console.log("\x1b[32m%s\x1b[0m", "CraftBukkit.jar downloaded!");
+                execSync("cd Minecraft && java -Xmx1024M -Xms1024M -jar CraftBukkit.jar", {
                     stdio: "inherit"
                 });
             });
