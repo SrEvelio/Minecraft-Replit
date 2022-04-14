@@ -28,8 +28,7 @@ const server = () => {
         });
     } else if (!fs.existsSync(path)) {
         console.log("\x1b[31m%s\x1b[0m", "paper-1.8.8-445.jar not found!");
-    console.log("\x1b[34m%s\x1b[0m", "I will try to download one for you.");
-    console.log("\x1b[34m%s\x1b[0m", "If for whatever reason it says that the Jar file is corrupt, you can delete the jar file and try running this again.");
+    console.log("\x1b[34m%s\x1b[0m", "I will try to download one for you, If for whatever reason it says that the Jar file is corrupt, you can delete the jar file and try running this again.");
     
     // Create the Minecraft folder if it doesn't exist
     
