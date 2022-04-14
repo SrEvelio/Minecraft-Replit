@@ -15,3 +15,7 @@ After that start your server, when it starts run
 ./ngrok tcp 25565
 ```
 Which will give you a url that you will have to put in minecraft and ready you already have a 100% functional minecraft server in replit.
+
+### ScreenShots
+
+![ScreenShot1](https://github.com/SrEvelio/Minecraft-Replit/blob/main/screenshots/2022-04-13_22.09.40.png)
