@@ -1,8 +1,6 @@
 const got = require('got');
 const fs = require("fs");
-const {
-    execSync
-} = require("child_process");
+const { execSync } = require("child_process");
 const path = "./Minecraft/paper-1.8.8-445.jar";
 const nngrok = "./ngrok-stable-linux-amd64.tgz"
 
@@ -21,21 +19,6 @@ const ngrok = () => {
                 execSync("tar xvzf ngrok-stable-linux-amd64.tgz && rm ngrok-stable-linux-amd64.tgz", {
                     stdio: "inherit"
                 });
-            });
-    }
-}
-
-// Intall Hibernate Plugin (https://www.spigotmc.org/resources/hibernate.4441/)
-const hibernateplugin = () => {
-    if (fs.existsSync("./Minecraft/plugins/Hibernate-2.0.0.jar")) return;
-
-    else if (!fs.existsSync("./Minecraft/plugins/Hibernate-2.0.0.jar")) {
-        if (!fs.existsSync("./Minecraft/plugins")) fs.mkdirSync("./Minecraft/plugins");
-
-        got.stream("https://www.mediafire.com/file/0rjr03550gi3ktw/Hibernate-2.0.0.jar/file")
-            .pipe(fs.createWriteStream("./Minecraft/plugins/Hibernate-2.0.0.jar"))
-            .on("finish", () => {
-                console.log("\x1b[32m%s\x1b[0m", "Hibernate-2.0.0.jar downloaded!");
             });
     }
 }
@@ -64,5 +47,4 @@ const server = () => {
 }
 
 ngrok();
-hibernateplugin();
 server();
