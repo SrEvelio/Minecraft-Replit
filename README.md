@@ -1,6 +1,6 @@
 ### Minecraft on Replit [![Run on Repl.it](https://repl.it/badge/github/SrEvelio/Minecraft-Replit)](https://repl.it/github/SrEvelio/Minecraft-Replit)
 
-The title says it all, running a minecraft [PaperMC 1.8.8](https://papermc.io/) server with on Replit in just seconds.
+The title says it all, running a minecraft [PaperMC 1.8.8](https://papermc.io/) server on Replit in just seconds.
 
 
 ### How to enter the server
