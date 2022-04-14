@@ -1,6 +1,8 @@
 const got = require('got');
 const fs = require("fs");
-const { execSync } = require("child_process");
+const {
+    execSync
+} = require("child_process");
 const path = "./Minecraft/paper-1.8.8-445.jar";
 const nngrok = "./ngrok-stable-linux-amd64.tgz"
 
@@ -25,7 +27,7 @@ const ngrok = () => {
 
 const server = () => {
     if (fs.existsSync(path)) {
-        execSync("cd Minecraft && java -jar paper-1.8.8-445.jar", {
+        execSync("cd Minecraft && java -Xmx1024M -Xms1024M -jar paper-1.8.8-445.jar", {
             stdio: "inherit"
         });
     } else if (!fs.existsSync(path)) {
@@ -39,7 +41,7 @@ const server = () => {
             .pipe(fs.createWriteStream(path))
             .on("finish", () => {
                 console.log("\x1b[32m%s\x1b[0m", "paper-1.8.8-445.jar downloaded!");
-                execSync("cd Minecraft && java -jar paper-1.8.8-445.jar", {
+                execSync("cd Minecraft && java -Xmx1024M -Xms1024M -jar paper-1.8.8-445.jar", {
                     stdio: "inherit"
                 });
             });
