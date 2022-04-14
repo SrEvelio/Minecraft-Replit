@@ -16,6 +16,7 @@ After that start your server, when it starts run
 ```
 Which will give you a url that you will have to put in minecraft and ready you already have a 100% functional minecraft server in replit.
 
+Owner of the original modified code [Darren](https://github.com/DarrenOfficial)
 
 ### ScreenShots
 
