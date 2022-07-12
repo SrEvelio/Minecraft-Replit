@@ -1,4 +1,4 @@
-### Minecraft on Replit [![Run on Repl.it](https://repl.it/badge/github/SrEvelio/Minecraft-Replit)](https://repl.it/github/SrEvelio/Minecraft-Replit)
+## Minecraft on Replit [![Run on Repl.it](https://repl.it/badge/github/SrEvelio/Minecraft-Replit)](https://repl.it/github/SrEvelio/Minecraft-Replit)
 
 The title says it all, running a minecraft server on Replit in just seconds.
 
