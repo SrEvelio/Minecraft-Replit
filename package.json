@@ -1,14 +1,16 @@
 {
   "name": "minecraft-replit",
-  "version": "3.0.0",
+  "version": "2.0.0",
   "main": "index.js",
   "author": "SrEvelio",
   "license": "SEE LICENSE IN LICENSE.md",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "got": "^11.8.1"
+    "got": "^11.8.1",
+    "ngrok": "^5.0.0-beta.2"
   },
   "scripts": {
-   "start": "bash start.sh"
+    "start": "bash start.sh",
+    "start17": "bash start17.sh"
   }
 }
