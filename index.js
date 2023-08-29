@@ -33,13 +33,17 @@ const checkAndStartServer = () => {
 }
 
 const startServer = async () => {
-    url = await ngrok.connect({ authtoken: process.env.authtoken, proto: 'tcp', addr: 25565 });
+    url = await ngrok.connect({ authtoken: process.env.authtoken, region: config.ngrokregion, proto: 'tcp', addr: 25565 });
 
     console.log('\x1b[36m%s\x1b[0m', 'Starting Minecraft server...');
     console.log('\x1b[32m%s\x1b[0m', `Server IP: ${url.replace(/^tcp:\/\//, '')}`);
     console.log('\n');
 
-    execSync(`cd ${minecraftFolderPath} && java -Xms512M -jar server.jar nogui`, { stdio: 'inherit' });
+    if (config.version.split(".")[1] > 16) {
+        execSync(`cd ${minecraftFolderPath} && java -Xms512M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -Djava.awt.headless=true -jar server.jar --nogui`, { stdio: 'inherit' });
+    } else {
+        execSync(`cd ${minecraftFolderPath} && java -Xms512M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -Djava.awt.headless=true -jar server.jar nogui`, { stdio: 'inherit' });
+    }
 };
 
 const downloadServerJar = downloadUrl => {

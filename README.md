@@ -14,10 +14,11 @@ In this new version, I thought, why not put more server types and versions, so n
 
 Now you are wondering how to select the type and version, well it is simple, basically edit the config.json file and in each value simply put the one of your preference, by default it will come with Vanilla 1.8.9 (I think it is the version that works best).
 
-```json
+```js
 {
-    "software": "vanilla",
-    "version": "1.8.9"
+    "software": "vanilla", // Purpur, paper, vanilla
+    "version": "1.8.9",
+    "ngrokregion": "us" // us, eu, au, ap, sa, jp, in
 }
 ```
 
