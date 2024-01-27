@@ -33,18 +33,29 @@ By the way, because replit is not designed to run minecraft servers (although it
 ##
 
 ### Changelog
-- 2.0.1:
--- Code enhancements and bug fixes
--- EULA is now automatically accepted when installing software
--- Server softwares are now downloaded from their respective APIs
--- Added javaArgs.txt to modify java parameters
--- Now config.json is located inside the "config" folder next to javaArgs.txt
+<details>
+  <summary>Version 2.0.1 - 2024-01-27</summary>
+
+  - Code enhancements and bug fixes
+  - EULA is now automatically accepted when installing software
+  - Server softwares are now downloaded from their respective APIs
+  - Added javaArgs.txt to modify java parameters
+  - Now config.json is located inside the "config" folder next to javaArgs.txt
+
+</details>
 
 ##
 
 ### Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=SrEvelio/Minecraft-Replit&type=Date)](https://star-history.com/#SrEvelio/Minecraft-Replit&Date)
+<a href="https://star-history.com/#SrEvelio/Minecraft-Replit&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=SrEvelio/Minecraft-Replit&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=SrEvelio/Minecraft-Replit&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=SrEvelio/Minecraft-Replit&type=Date" />
+  </picture>
+</a>
+
 
 ##
 
