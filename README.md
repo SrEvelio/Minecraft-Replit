@@ -61,6 +61,6 @@ By the way, because replit is not designed to run minecraft servers (although it
 
 ### ScreenShots
 
-![Minecraft on Replit #1](https://github.com/SrEvelio/Minecraft-Replit/blob/main/screenshots/2023-08-28_16.01.46.png)
+![Minecraft on Replit #1](screenshots/2023-08-28_16.01.46.png)
 
-![Minecraft on Replit #2](https://github.com/SrEvelio/Minecraft-Replit/blob/main/screenshots/2023-08-28_16.11.45.png)
+![Minecraft on Replit #2](screenshots/2023-08-28_16.11.45.png)
