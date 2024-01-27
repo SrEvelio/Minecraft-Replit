@@ -1,58 +1,120 @@
-const got = require('got');
+const config = require("./config/config.json");
+const { execSync } = require("child_process");
+
+const got = require("got");
 const fs = require("fs");
 const ngrok = require("ngrok");
 
-const config = require("./config.json");
-const { execSync } = require("child_process");
-
-const minecraftFolderPath = 'Minecraft';
+const minecraftFolderPath = "Minecraft";
 const serverJarPath = `${minecraftFolderPath}/server.jar`;
+const availableSoftwares = ["paper", "purpur", "vanilla", "sponge"];
 
 if (!fs.existsSync(minecraftFolderPath)) fs.mkdirSync(minecraftFolderPath);
 
-const checkAndStartServer = () => {
-    if (fs.existsSync(serverJarPath)) {
-        startServer();
-    } else {
-        const softwareFilePath = `./softwares/${config.software}.json`;
-        if (!fs.existsSync(softwareFilePath)) {
-            return console.log('\x1b[31m%s\x1b[0m', 'The software you provided does not exist!');
-        }
-
-        const selected = require(softwareFilePath);
-        if (!selected.versions[config.version]) {
-            return console.log('\x1b[31m%s\x1b[0m', `${config.software} ${config.version} does not exist`);
-        }
-
-        console.log('\x1b[31m%s\x1b[0m', 'server.jar not found!');
-        console.log('\x1b[34m%s\x1b[0m', 'I will try to download one for you.');
-        console.log('\x1b[34m%s\x1b[0m', 'If for whatever reason it says that the Jar file is corrupt, you can delete the jar file and try running this again.');
-
-        downloadServerJar(selected.versions[config.version]);
-    };
-}
-
-const startServer = async () => {
-    url = await ngrok.connect({ authtoken: process.env.authtoken, region: config.ngrokregion, proto: 'tcp', addr: 25565 });
-
-    console.log('\x1b[36m%s\x1b[0m', 'Starting Minecraft server...');
-    console.log('\x1b[32m%s\x1b[0m', `Server IP: ${url.replace(/^tcp:\/\//, '')}`);
-    console.log('\n');
-
-    if (config.version.split(".")[1] > 16) {
-        execSync(`cd ${minecraftFolderPath} && java -Xms512M --add-modules=jdk.incubator.vector -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -Djava.awt.headless=true -jar server.jar --nogui`, { stdio: 'inherit' });
-    } else {
-        execSync(`cd ${minecraftFolderPath} && java -Xms512M -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -Djava.awt.headless=true -jar server.jar nogui`, { stdio: 'inherit' });
+const checkServer = async () => {
+  if (fs.existsSync(serverJarPath)) {
+    startServer();
+  } else {
+    if (!availableSoftwares.includes(config.software.toLowerCase())) {
+      return console.log(
+        "\x1b[31m%s\x1b[0m",
+        "The software you provided does not exist!",
+      );
     }
+    let purpurUrl = `https://api.purpurmc.org/v2/purpur/${config.version}/latest/download`;
+    let paperUrl = await getPaper(config.version);
+    let vanillaUrl = `https://www.mcjars.com/get/vanilla-${config.version}.jar`;
+    let spongeUrl = `https://serverjars.com/api/fetchJar/servers/sponge/${config.version}`;
+
+    let url = {
+      paper: paperUrl,
+      purpur: purpurUrl,
+      vanilla: vanillaUrl,
+      sponge: spongeUrl,
+    };
+
+    console.log("\x1b[31m%s\x1b[0m", "server.jar not found!");
+    console.log("\x1b[34m%s\x1b[0m", "I will try to download one for you.");
+    console.log(
+      "\x1b[34m%s\x1b[0m",
+      "If for whatever reason it says that the Jar file is corrupt, you can delete the jar file and try running this again.",
+    );
+
+    downloadServerJar(url[config.software]);
+  }
 };
 
-const downloadServerJar = downloadUrl => {
-    got.stream(downloadUrl)
-        .pipe(fs.createWriteStream(serverJarPath))
-        .on('finish', () => {
-            console.log('\x1b[32m%s\x1b[0m', 'server.jar downloaded!');
-            startServer();
-        });
+// A simple function to download the software
+const downloadServerJar = (downloadUrl) => {
+  got
+    .stream(downloadUrl)
+    .on("error", (err) => {
+      console.error(err);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        "An error occurred while downloading the selected version, maybe it does not exist?",
+      );
+    })
+    .pipe(fs.createWriteStream(serverJarPath))
+    .on("finish", () => {
+      console.log("\x1b[32m%s\x1b[0m", "server.jar downloaded!");
+      acceptEula();
+      startServer();
+    });
 };
 
-checkAndStartServer();
+// The name says it all
+const getPaper = async (version) => {
+  const baseUrl = "https://papermc.io/api/v2/projects/paper/versions";
+
+  try {
+    let res = await got(`${baseUrl}/${version}`);
+    let body = JSON.parse(res.body);
+
+    const latestBuild = body.builds[body.builds.length - 1];
+    const jarFileName = `paper-${version}-${latestBuild}.jar`;
+
+    return `${baseUrl}/${version}/builds/${latestBuild}/downloads/${jarFileName}`;
+  } catch (err) {
+    return null;
+  }
+};
+
+// Automatically accept the EULA
+const acceptEula = async () => {
+  fs.writeFile(`${minecraftFolderPath}/eula.txt`, "eula=true", (err) => {
+    if (err) throw err;
+  });
+};
+
+// Function to start the Minecraft server
+const startServer = async () => {
+  url = await ngrok.connect({
+    authtoken: process.env.authtoken,
+    region: config.ngrokregion,
+    proto: "tcp",
+    addr: 25565,
+  });
+
+  console.log("\x1b[36m%s\x1b[0m", "Starting Minecraft server...");
+  console.log(
+    "\x1b[32m%s\x1b[0m",
+    `Server IP: ${url.replace(/^tcp:\/\//, "")}`,
+  );
+  console.log("\n");
+
+  fs.readFile("./config/javaArgs.txt", "utf8", (err, data) => {
+    if (err) return console.log("\x1b[31m%s\x1b[0m", "javaArgs.txt not found!");
+
+    let commonJavaOptions = data.trim().split("\n");
+
+    execSync(
+      `cd ${minecraftFolderPath} && java ${commonJavaOptions.join(
+        " ",
+      )} -jar server.jar nogui`,
+      { stdio: "inherit" },
+    );
+  });
+};
+
+checkServer();
