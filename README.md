@@ -17,7 +17,6 @@ Once you have your key simply put it in the Secrets section, after that simply c
   - Random comments added C:
   - Improvements in the code, now it is modular :D
   - Now most of the code has been moved to the "src" folder
-  - Now the Screenshots folder will be automatically deleted (Why not?)
   - Now config.json is located inside the "src/config" folder next to javaArgs.txt (YeS, another change)
 
 </details>
