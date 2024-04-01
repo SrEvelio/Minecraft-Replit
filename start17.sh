@@ -6,4 +6,4 @@ echo Java is installed.
 java -version
 npm install
 clear
-node -r dotenv/config index.js
+node -r dotenv/config src/index.js
