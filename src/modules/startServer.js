@@ -13,6 +13,7 @@ const startServer = async () => {
     addr: 25565,
   });
 
+  execSync("clear", { stdio: "inherit" });
   console.log("\x1b[36m%s\x1b[0m", "Starting Minecraft server...");
   console.log(
     "\x1b[32m%s\x1b[0m",
@@ -25,12 +26,21 @@ const startServer = async () => {
 
     let commonJavaOptions = data.trim().split("\n");
 
-    execSync(
-      `cd ${minecraftFolderPath} && java ${commonJavaOptions.join(
-        " ",
-      )} -jar server.jar nogui`,
-      { stdio: "inherit" },
-    );
+    if (config.software.toLocaleLowerCase() == "quilt") {
+      execSync(
+        `cd ${minecraftFolderPath} && java ${commonJavaOptions.join(
+          " ",
+        )} -jar quilt-server-launch.jar nogui`,
+        { stdio: "inherit" },
+      );
+    } else {
+      execSync(
+        `cd ${minecraftFolderPath} && java ${commonJavaOptions.join(
+          " ",
+        )} -jar server.jar nogui`,
+        { stdio: "inherit" },
+      );
+    }
   });
 };
 

@@ -12,11 +12,24 @@ Once you have your key simply put it in the Secrets section, after that simply c
 
 ### Changelog
 <details>
+  <summary>Version 2.2.0 - 2024-06-22</summary>
+
+  - There were some internal changes, to improve the code.
+  - Added new Fabric, Quilt, Mohist and Banner softwares.
+  - Added Fabric API auto-download for fabric and for Banner to work properly.
+  - Sponge removed until further notice.
+  - Now the Vanilla versions are downloaded directly from Mojang's API. (It should have been like that from the beginning :b)
+  - Added start21.sh to satisfy the Java 21 requirement of minecraft versions higher than 1.21.
+  - Added the java argument "-Djava.awt.headless=true" needed for Banner to start, for some reason I don't know XD.
+
+</details>
+<details>
   <summary>Version 2.1.0 - 2024-03-31</summary>
 
   - Random comments added C:
   - Improvements in the code, now it is modular :D
   - Now most of the code has been moved to the "src" folder
+  - Now the Screenshots folder will be automatically deleted (Why not?)
   - Now config.json is located inside the "src/config" folder next to javaArgs.txt (YeS, another change)
 
 </details>
@@ -34,20 +47,22 @@ Once you have your key simply put it in the Secrets section, after that simply c
 ##
 
 ### Notes
-To try to optimize the project more we started to use replit's own java but this led to the fact that versions higher than 1.16.5 cannot be started, so to be able to start higher versions you must use a different java, so to start them simply edit the .replit file to start the start17.sh file instead of start.sh.
+To try to further optimize the project we started using replit's own java but this led to the fact that versions higher than 1.16.5 cannot be started, so to be able to start higher versions you have to use a different java, so to start them you simply edit the .replit file to start the start17.sh file instead of start.sh.
+
+With the arrival of 1.21, the problem is repeated, the versions superior to 1.21 (including it), need Java 21 to work, so, now there is start21.sh to fix this small problem. 
 
 By the way, because replit is not designed to run minecraft servers (although it is possible) these may have a questionable performance so it will not always keep 20 Ticks per second or even reach it, so this is more for curiosity and to know the limits of replit.
 ##
 
 ### Softwares
-In this new version, I thought, why not put more server types and versions, so now you can choose between [Purpur](https://purpurmc.org/) (1.20.4 - 1.14.1), [Paper](https://papermc.io/) (1.20.4 - 1.8.8), [Sponge](https://spongepowered.org/) (1.12.2 - 1.8.9) and Vanilla (1.20.4 - 1.7.10).
+In this new version, I thought, why not put more server types and versions, so now you can choose between [Purpur](https://purpurmc.org/) (1.21 - 1.14.1), [Paper](https://papermc.io/) (1.21 - 1.8.8), [Mohist](https://mohistmc.com/software/mohist) (1.20.2 - 1.7.10), [Banner](https://mohistmc.com/software/banner), [Fabric](https://fabricmc.net/) (1.21 - 1.14), [Quilt](https://quiltmc.org/en/) (1.21 - 1.14) and [Vanilla](https://www.minecraft.net/es-es/download/server) (1.21 - 1.0 [Includes Snapshots, alphas and betas]).
 
-Now you are wondering how to select the type and version, well it is simple, basically edit the config.json file and in each value simply put the one of your preference, by default it will come with Vanilla 1.8.9 (I think it is the version that works best).
+Now you may be wondering how to select the type and version, well it's simple, basically edit the config.json file and in each value simply put the one of your preference, by default it will come with Vanilla 1.7.10 (A classic).
 
 ```js
 {
-    "software": "paper", // Purpur, Paper, Vanilla, Sponge
-    "version": "1.8.8",
+    "software": "fabric", // Purpur, Paper, Vanilla, Fabric, Quilt, Banner
+    "version": "1.16.5",
     "ngrokregion": "us" // us, eu, au, ap, sa, jp, in
 }
 ```

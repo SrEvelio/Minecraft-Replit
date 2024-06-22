@@ -1,8 +1,7 @@
 const got = require("got");
+const baseUrl = "https://papermc.io/api/v2/projects/paper/versions";
 
-const getPaper = async (version) => {
-  const baseUrl = "https://papermc.io/api/v2/projects/paper/versions";
-
+module.exports = async (version) => {
   try {
     let res = await got(`${baseUrl}/${version}`);
     let body = JSON.parse(res.body);
@@ -15,5 +14,3 @@ const getPaper = async (version) => {
     return null;
   }
 };
-
-module.exports = getPaper;

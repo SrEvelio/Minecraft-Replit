@@ -1,1 +1,1 @@
--Xms512M -Xmx1G
+-Xms512M -Xmx1G -Djava.awt.headless=true

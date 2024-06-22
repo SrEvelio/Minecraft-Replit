@@ -1,6 +1,6 @@
 language = "bash"
 run = "bash start.sh"
-entrypoint = "start.sh"
+entrypoint = "index.js"
 hidden = [".config", "package-lock.json"]
 modules = ["nodejs-20:v8-20230920-bd784b9"]
 
@@ -14,3 +14,7 @@ channel = "stable-23_05"
 run = ["node", "index.js"]
 deploymentTarget = "cloudrun"
 ignorePorts = false
+
+[[ports]]
+localPort = 25565
+externalPort = 80

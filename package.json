@@ -1,7 +1,7 @@
 {
   "name": "minecraft-replit",
   "version": "2.1.0",
-  "main": "src/index.js",
+  "main": "index.js",
   "author": "SrEvelio",
   "license": "SEE LICENSE IN LICENSE.md",
   "dependencies": {
